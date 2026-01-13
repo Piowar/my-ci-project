@@ -1,0 +1,27 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarcloud:
+    name: SonarQube Cloud Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Ważne: pobiera całą historię commitów dla lepszej analizy
+
+      - name: SonarQube Cloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # To jest domyślny token GitHuba
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # To jest sekret, który dodałeś wcześniej
+        with:
+          args: >
+            -Dsonar.organization=piowar
+            -Dsonar.projectKey=Piowar_my-ci-project
