@@ -16,3 +16,4 @@ public class Bad {  // <--- Upewnij się, że ta nazwa pasuje do nazwy pliku!
         System.out.println("Wynik: " + result);
     }
 }
+
