@@ -1,19 +1,27 @@
-public class Bad {  // <--- Upewnij się, że ta nazwa pasuje do nazwy pliku!
+public class Bad { // Nazwa klasy musi pasować do nazwy pliku (Bad.java)
 
-    // 1. SECURITY HOTSPOT
-    private static final String MY_PASSWORD = "superSecretPassword123";
+    // 1. SECURITY HOTSPOT: Hasło wpisane na sztywno
+    private static final String HARDCODED_PASSWORD = "mySuperSecretPassword123";
 
     public static void main(String[] args) {
-        // 2. CODE SMELL
-        System.out.println("Starting application...");
+        // 2. CODE SMELL: Użycie System.out zamiast Loggera
+        System.out.println("Start aplikacji...");
 
         int a = 10;
-        int b = 0; // 3. BUG: Dzielenie przez zero
+        int b = 0;
 
-        // To wywoła błąd Reliability w SonarQube
-        int result = a / b; 
+        // 3. BUG: Dzielenie przez zero
+        // SonarQube powinien to wykryć jako błąd krytyczny (Reliability)
+        if (true) {
+            int result = a / b;
+            System.out.println("Wynik: " + result);
+        }
 
-        System.out.println("Wynik: " + result);
+        // 4. CODE SMELL: Nieużywana zmienna
+        int unusedVariable = 123;
+    }
+    
+    // 5. CODE SMELL: Pusta metoda
+    public void emptyMethod() {
     }
 }
-
