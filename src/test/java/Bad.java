@@ -1,20 +1,26 @@
-public class Bad { // <--- Ta nazwa jest kluczowa! Musi pasować do nazwy pliku.
+import java.util.logging.Logger;
+import java.util.logging.Level;
+
+public class Bad { // Nazwa klasy musi pasować do nazwy pliku!
+
+    // Używamy profesjonalnego loggera zamiast System.out.println
+    private static final Logger logger = Logger.getLogger(Bad.class.getName());
 
     public static void main(String[] args) {
-        System.out.println("Start aplikacji...");
+        logger.info("Start aplikacji...");
 
         int number = 10;
-        int zero = 0;
+        int divisor = 2; // Zmieniliśmy 0 na 2, żeby program miał sens
 
-        // BŁĄD KRYTYCZNY (Reliability: C)
-        // SonarQube wykryje: "Fix this call that leads to a division by zero"
-        int result = number / zero; 
+        // Zabezpieczenie przed dzieleniem przez zero (Reliability: A)
+        if (divisor != 0) {
+            int result = number / divisor;
+            logger.log(Level.INFO, "Wynik dzielenia: {0}", result);
+        } else {
+            logger.warning("Nie można dzielić przez zero!");
+        }
 
-        System.out.println("Wynik: " + result);
-    }
-
-    // Code Smell (Maintainability: A - lekkie uwagi)
-    // Pusta metoda, której nikt nie używa
-    public void emptyMethod() {
+        // Usunęliśmy zahardkodowane hasło (Security: A)
+        // Usunęliśmy puste metody i nieużywane zmienne (Maintainability: A)
     }
 }
