@@ -3,7 +3,7 @@ name: SonarQube Analysis
 on:
   push:
     branches:
-      - main
+      - main  # Uruchom, gdy wypchniesz zmiany na branch 'main'
   pull_request:
     types: [opened, synchronize, reopened]
 
@@ -14,13 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Ważne: pobiera całą historię commitów dla lepszej analizy
+          fetch-depth: 0  # Ważne dla dokładnej analizy historii zmian
 
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # To jest domyślny token GitHuba
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}    # To jest sekret, który dodałeś wcześniej
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
             -Dsonar.organization=piowar
